@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Boxes</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100vh;
+        margin: 0;
+      }
+      .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+      .box {
+        width: 150px;
+        height: 100px;
+        background-color: lightgray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+      }
+      .box.expanded {
+        width: 300px;
+        height: 250px;
+      }
+      .options {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 10px;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      .box.expanded .options {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        gap: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" onclick="toggleBox(this)">
+        <div class="grid-container">
+            <div class="item1"><input type="radio" id="radio1" name="fav_language" value="HTML">
+                            <label for="radio1">1 Pair</label><br>
+            </div>
+            <div class="item2"> <h3>50% off</h3></div>
+        </div>
+        <div class="settings" style="display: none">
+          <label
+            >Color:
+            <select onchange="changeColor(this, event)">
+              <option value="lightgray">Gray</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+            </select>
+          </label>
+          <label
+            >Size:
+            <select onchange="changeSize(this, event)">
+              <option value="100px">Small</option>
+              <option value="150px">Medium</option>
+              <option value="200px">Large</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="box" onclick="toggleBox(this)">
+        <div class="grid-container">
+            <div class="item1"><input type="radio" id="radio1" name="fav_language" value="HTML">
+                            <label for="radio1">1 Pair</label><br>
+            </div>
+            <div class="item2"> <h3>50% off</h3></div>
+        </div>
+        <div class="settings" style="display: none">
+          <label
+            >Color:
+            <select onchange="changeColor(this, event)">
+              <option value="lightgray">Gray</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+            </select>
+          </label>
+          <label
+            >Size:
+            <select onchange="changeSize(this, event)">
+              <option value="100px">Small</option>
+              <option value="150px">Medium</option>
+              <option value="200px">Large</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="box" onclick="toggleBox(this)">
+      <div class="options">
+        <label
+          ><input
+            type="radio"
+            name="option3"
+            onclick="showSettings(event, this)"
+          />
+          Option 1</label
+        >
+        <div class="settings" style="display: none">
+          <label
+            >Color:
+            <select onchange="changeColor(this, event)">
+              <option value="lightgray">Gray</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+            </select>
+          </label>
+          <label
+            >Size:
+            <select onchange="changeSize(this, event)">
+              <option value="100px">Small</option>
+              <option value="150px">Medium</option>
+              <option value="200px">Large</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleBox(selectedBox) {
+        document.querySelectorAll(".box").forEach((box) => {
+          if (box !== selectedBox) {
+            box.classList.remove("expanded");
+          }
+        });
+        selectedBox.classList.toggle("expanded");
+      }
+
+      function showSettings(event, radio) {
+        event.stopPropagation();
+        let settings = radio.closest(".options").querySelector(".settings");
+        settings.style.display = "block";
+      }
+
+      function changeColor(select, event) {
+        event.stopPropagation();
+        select.closest(".box").style.backgroundColor = select.value;
+      }
+
+      function changeSize(select, event) {
+        event.stopPropagation();
+        select.closest(".box").style.height = select.value;
+      }
+    </script>
+  </body>
+</html>
